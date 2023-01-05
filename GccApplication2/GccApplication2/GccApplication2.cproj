@@ -102,6 +102,10 @@
       <Value>../MCAL/I2C/includes</Value>
       <Value>../Library</Value>
       <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.7.374\include\</Value>
+      <Value>../MCAL/ADC/includes</Value>
+      <Value>../HAL/LM35/includes</Value>
+      <Value>../HAL/TCS/includes</Value>
+      <Value>../MCAL/Timer/includes</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -130,6 +134,12 @@
     <Compile Include="HAL\EEPROM\src\EEPROM.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\LM35\includes\LM35.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\LM35\src\LM35.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="HAL\TCS\includes\TCS.h">
       <SubType>compile</SubType>
     </Compile>
@@ -139,10 +149,22 @@
     <Compile Include="Library\BitMath.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Library\Clock.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Library\STD_Types.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ADC\includes\ADC.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ADC\includes\ADC_HW.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ADC\src\ADC.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="MCAL\I2C\includes\I2C.h">
@@ -154,20 +176,35 @@
     <Compile Include="MCAL\I2C\src\I2C.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="MCAL\Timer\includes\Timer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\Timer\src\Timer.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HAL" />
     <Folder Include="HAL\EEPROM" />
     <Folder Include="HAL\EEPROM\includes" />
     <Folder Include="HAL\EEPROM\src" />
+    <Folder Include="HAL\LM35" />
+    <Folder Include="HAL\LM35\includes" />
+    <Folder Include="HAL\LM35\src" />
     <Folder Include="HAL\TCS" />
     <Folder Include="HAL\TCS\includes" />
     <Folder Include="HAL\TCS\src" />
     <Folder Include="MCAL" />
+    <Folder Include="MCAL\ADC\includes" />
+    <Folder Include="MCAL\ADC\src" />
     <Folder Include="MCAL\I2C" />
     <Folder Include="MCAL\I2C\includes" />
     <Folder Include="MCAL\I2C\src" />
     <Folder Include="Library" />
+    <Folder Include="MCAL\ADC" />
+    <Folder Include="MCAL\Timer" />
+    <Folder Include="MCAL\Timer\includes" />
+    <Folder Include="MCAL\Timer\src" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

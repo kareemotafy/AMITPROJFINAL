@@ -19,5 +19,7 @@ void HEATER_ON();
 
 void HEATER_OFF();
 
+void update_temp_reading();
+
 
 #endif /* TCS_H_ */

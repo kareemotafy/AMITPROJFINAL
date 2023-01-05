@@ -6,6 +6,8 @@
  */ 
 
 #include <avr/io.h>
+#include "BitMath.h"
+#include "LM35.h"
 
 
 void COOLER_ON()
@@ -24,4 +26,27 @@ void HEATER_ON()
 void HEATER_OFF()
 {
 	ClearBit(PORTD, 7);
+}
+
+short temp_reading_counter = 0;
+short temp_reading[10] = {};
+static short current_temp = 0;
+
+void update_temp_reading(void){
+	if (temp_reading_counter < 10)
+	{
+		temp_reading[temp_reading_counter] = LM35_Read();
+		temp_reading_counter++;
+	}
+	else
+	{
+		temp_reading_counter = 0;
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		current_temp += temp_reading[i];
+	}
+	current_temp /= 10;
+	PORTD = ~PORTD;
 }
