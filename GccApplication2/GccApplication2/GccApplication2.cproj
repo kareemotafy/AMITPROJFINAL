@@ -130,6 +130,12 @@
     <Compile Include="HAL\EEPROM\src\EEPROM.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\TCS\includes\TCS.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\TCS\src\TCS.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Library\BitMath.h">
       <SubType>compile</SubType>
     </Compile>
@@ -154,6 +160,9 @@
     <Folder Include="HAL\EEPROM" />
     <Folder Include="HAL\EEPROM\includes" />
     <Folder Include="HAL\EEPROM\src" />
+    <Folder Include="HAL\TCS" />
+    <Folder Include="HAL\TCS\includes" />
+    <Folder Include="HAL\TCS\src" />
     <Folder Include="MCAL" />
     <Folder Include="MCAL\I2C" />
     <Folder Include="MCAL\I2C\includes" />

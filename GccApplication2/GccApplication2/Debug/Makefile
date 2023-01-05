@@ -37,6 +37,9 @@ SUBDIRS :=  \
 ../HAL/EEPROM \
 ../HAL/EEPROM/includes \
 ../HAL/EEPROM/src \
+../HAL/TCS \
+../HAL/TCS/includes \
+../HAL/TCS/src \
 ../MCAL \
 ../MCAL/I2C \
 ../MCAL/I2C/includes \
@@ -47,6 +50,7 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../HAL/EEPROM/src/EEPROM.c \
+../HAL/TCS/src/TCS.c \
 ../main.c \
 ../MCAL/I2C/src/I2C.c
 
@@ -59,21 +63,25 @@ ASM_SRCS +=
 
 OBJS +=  \
 HAL/EEPROM/src/EEPROM.o \
+HAL/TCS/src/TCS.o \
 main.o \
 MCAL/I2C/src/I2C.o
 
 OBJS_AS_ARGS +=  \
 HAL/EEPROM/src/EEPROM.o \
+HAL/TCS/src/TCS.o \
 main.o \
 MCAL/I2C/src/I2C.o
 
 C_DEPS +=  \
 HAL/EEPROM/src/EEPROM.d \
+HAL/TCS/src/TCS.d \
 main.d \
 MCAL/I2C/src/I2C.d
 
 C_DEPS_AS_ARGS +=  \
 HAL/EEPROM/src/EEPROM.d \
+HAL/TCS/src/TCS.d \
 main.d \
 MCAL/I2C/src/I2C.d
 
@@ -92,6 +100,13 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 HAL/EEPROM/src/EEPROM.o: ../HAL/EEPROM/src/EEPROM.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/TCS/src/TCS.o: ../HAL/TCS/src/TCS.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

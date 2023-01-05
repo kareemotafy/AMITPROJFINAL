@@ -24,6 +24,26 @@ Discarded input sections
  .debug_str     0x00000000      0x2c7 HAL/EEPROM/src/EEPROM.o
  .comment       0x00000000       0x31 HAL/EEPROM/src/EEPROM.o
  .debug_frame   0x00000000       0x50 HAL/EEPROM/src/EEPROM.o
+ .text          0x00000000        0x0 HAL/TCS/src/TCS.o
+ .data          0x00000000        0x0 HAL/TCS/src/TCS.o
+ .bss           0x00000000        0x0 HAL/TCS/src/TCS.o
+ .text.COOLER_ON
+                0x00000000        0xe HAL/TCS/src/TCS.o
+ .text.COOLER_OFF
+                0x00000000        0xe HAL/TCS/src/TCS.o
+ .text.HEATER_ON
+                0x00000000        0xe HAL/TCS/src/TCS.o
+ .text.HEATER_OFF
+                0x00000000        0xe HAL/TCS/src/TCS.o
+ .debug_info    0x00000000      0x18b HAL/TCS/src/TCS.o
+ .debug_abbrev  0x00000000       0x92 HAL/TCS/src/TCS.o
+ .debug_aranges
+                0x00000000       0x38 HAL/TCS/src/TCS.o
+ .debug_ranges  0x00000000       0x28 HAL/TCS/src/TCS.o
+ .debug_line    0x00000000       0xec HAL/TCS/src/TCS.o
+ .debug_str     0x00000000      0x1b5 HAL/TCS/src/TCS.o
+ .comment       0x00000000       0x31 HAL/TCS/src/TCS.o
+ .debug_frame   0x00000000       0x54 HAL/TCS/src/TCS.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -91,6 +111,7 @@ Linker script and memory map
 
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5/crtatmega32a.o
 LOAD HAL/EEPROM/src/EEPROM.o
+LOAD HAL/TCS/src/TCS.o
 LOAD main.o
 LOAD MCAL/I2C/src/I2C.o
 START GROUP
