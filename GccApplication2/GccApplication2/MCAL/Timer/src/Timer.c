@@ -3,20 +3,19 @@
  *
  * Created: 1/5/2023 11:19:55 PM
  *  Author: Kareem
- */ 
+ */
 #include "avr/interrupt.h"
 
 // Timer counter value for 100ms interrupt frequency
-#define TIMER_COUNTER_VALUE 80000
 
+void INIT_Timer0(void)
+{
+	// Set initial value of TCNT0
+	TCNT0 = 142;
 
-void INIT_Timer1(void){
-	// Set up timer in CTC mode
-	TCCR1A = 0;
-	TCCR1B = (1 << WGM12) | (1 << CS10);
-	// Set timer counter value
-	TCNT1 = TIMER_COUNTER_VALUE;
+	// Set Timer0 to Normal mode with prescaler of 64
+	TCCR0 = (1 << CS01) | (1 << CS00);
 
-	// Enable timer compare interrupt
-	TIMSK = (1 << OCIE1A);
+	// Enable Timer0 overflow interrupt
+	TIMSK |= (1 << TOIE0);
 }
