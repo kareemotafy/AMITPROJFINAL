@@ -22,7 +22,7 @@ EEPROM_RetType EEPROM_writeByte(char Data, unsigned short int word)
 	/*Delay 5 ms to write*/
 	_delay_ms(5);
 	/*Send Stop condition*/
-	sendStopcondition();
+	TWI_sendStopCondition();
 	return EERet_local;
 }
 
@@ -43,5 +43,6 @@ EEPROM_RetType EEPROM_ReadByte(char *Data, unsigned short int word)
 	/*calling the master read function*/
 	TWI_MasterReadData(Data);
 	/*send stop condition*/
-	sendStopcondition();
+	TWI_sendStopCondition();
+	
 }

@@ -11,7 +11,9 @@ HAL/TCS/src/TCS.d HAL/TCS/src/TCS.o: ../HAL/TCS/src/TCS.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
  ../Library/BitMath.h ../HAL/LM35/includes/LM35.h \
- ../MCAL/ADC/includes/ADC.h ../MCAL/ADC/includes/ADC_HW.h
+ ../MCAL/ADC/includes/ADC.h ../MCAL/ADC/includes/ADC_HW.h \
+ ../HAL/EEPROM/includes/EEPROM.h ../MCAL/I2C/includes/I2C.h \
+ ../MCAL/I2C/includes/I2C_HW.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -42,3 +44,9 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../MCAL/ADC/includes/ADC.h:
 
 ../MCAL/ADC/includes/ADC_HW.h:
+
+../HAL/EEPROM/includes/EEPROM.h:
+
+../MCAL/I2C/includes/I2C.h:
+
+../MCAL/I2C/includes/I2C_HW.h:

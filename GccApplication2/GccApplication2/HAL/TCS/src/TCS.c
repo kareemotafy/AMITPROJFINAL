@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include "BitMath.h"
 #include "LM35.h"
-
+#include "EEPROM.h"
 
 void COOLER_ON()
 {
@@ -30,7 +30,7 @@ void HEATER_OFF()
 
 short temp_reading_counter = 0;
 short temp_reading[10] = {};
-static short current_temp = 0;
+char current_temp = 0;
 
 void update_temp_reading(){
 	if (temp_reading_counter < 10)
@@ -48,4 +48,5 @@ void update_temp_reading(){
 		current_temp += temp_reading[i];
 	}
 	current_temp /= 10;
+	EEPROM_writeByte(current_temp,0xC7);
 }
