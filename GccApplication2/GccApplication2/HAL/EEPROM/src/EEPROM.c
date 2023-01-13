@@ -4,7 +4,6 @@
  * Created: 1/5/2023 10:31:12 PM
  *  Author: Kareem
  */
-#include "I2C.h"
 #include "EEPROM.h"
 
 EEPROM_RetType EEPROM_writeByte(char Data, unsigned short int word)

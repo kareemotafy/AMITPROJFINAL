@@ -8,8 +8,10 @@
 
 #ifndef EEPROM_H_
 #define EEPROM_H_
-
 #include "I2C.h"
+#include "EEPROM.h"
+#define F_CPU 8000000ul
+#include <util/delay.h>
 typedef unsigned char Uint8;
 typedef enum{
 	EE_noError,

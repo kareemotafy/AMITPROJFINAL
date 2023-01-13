@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+HAL\BUTTONS\src\buttons.c
+
 HAL\EEPROM\src\EEPROM.c
 
 HAL\LM35\src\LM35.c
