@@ -41,27 +41,6 @@ char tens;
 	}
 	
 	
-	void SSD_blink(char num)
-	{
-		SSD_port=0x7f;
-		
-		
-		_delay_ms(200);
-		
-		
-		units=num%10;
-		tens=num/10;
-		
-		SSD_port=number[units];
-		_delay_ms(MultiplexDelay);
-		ClearBit(Display1Port,Display1Pin);
-		SetBit(Display2Port,Display2Pin);
-		
-		
-		SSD_port=number[tens];
-		_delay_ms(MultiplexDelay);
-		SetBit(Display1Port,Display1Pin);
-		ClearBit(Display2Port,Display2Pin);
-	}
+	
 	
 	

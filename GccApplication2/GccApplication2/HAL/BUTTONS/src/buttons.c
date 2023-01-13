@@ -11,6 +11,9 @@ char setting;
 char settemp;
 char count;
 char iteration;
+
+
+
 void INIT_buttons()
 {
 		SetBit(OnOffPort,OnOffPin);  
@@ -29,20 +32,31 @@ void UpdateSetTemp()
 	
 	if ((!GetBit(PIND,0))||(!GetBit(PIND,1)))
 	{
-		if (((setting==1)&&(!GetBit(PIND,0))&&(settemp<maxTemp)&&!(count==1))||((setting==1)&&(!GetBit(PIND,0))&&(settemp<maxTemp)&&(iteration>=5)))
+		if ((setting==1)&&(!GetBit(PIND,0))&&(count>0))
 		{
-			settemp+=5;
-			eeprom_write_byte((int*) 0x55,settemp);
-			iteration=0;
-
+			if (!(settemp>=maxTemp))
+			{
+				settemp+=5;
+			}
+			while (!GetBit(PIND,0))
+			{
+				SSD_write(settemp);
+			}
+			
 			
 		}
-		if (((setting==1)&&(!GetBit(PIND,1))&&(settemp>miniTemp)&&!(count==1))||((setting==1)&&(!GetBit(PIND,1))&&(settemp>miniTemp)&&(iteration>=5)))
+		if ((setting==1)&&(!GetBit(PIND,1))&&(settemp>miniTemp)&&(count>0))
 		{
-			settemp-=5;
-			eeprom_write_byte((int*) 0x55,settemp);
-			iteration=0;
+			if (!(settemp<=miniTemp))
+			{
+				settemp-=5;
+			}
+			while (!GetBit(PIND,1))
+			{
+				SSD_write(settemp);
+			}
 		}
+		eeprom_write_byte((int*) 0x55,settemp);
 		setting=1;
 		count=0;
 		settemp=eeprom_read_byte((int*)0x55);

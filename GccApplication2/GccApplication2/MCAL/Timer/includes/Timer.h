@@ -10,6 +10,6 @@
 #define TIMER_H_
 
 void INIT_Timer0();
-
+void INIT_Timer1();
 
 #endif /* TIMER_H_ */

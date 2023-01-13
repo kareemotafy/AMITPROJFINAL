@@ -10,15 +10,14 @@
 #define EEPROM_H_
 #include "I2C.h"
 #include "EEPROM.h"
+#include <avr/eeprom.h>
 #define F_CPU 8000000ul
 #include <util/delay.h>
-typedef unsigned char Uint8;
-typedef enum{
-	EE_noError,
-	EE_error
-}EEPROM_RetType;
-EEPROM_RetType EEPROM_writeByte(char Data,unsigned short int word);
-EEPROM_RetType EEPROM_ReadByte(char *Data,unsigned short int word);
+
+
+
+void INIT_eeprom();
+
 
 
 

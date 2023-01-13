@@ -19,3 +19,14 @@ void INIT_Timer0()
 	// Enable Timer0 overflow interrupt
 	TIMSK |= (1 << TOIE0);
 }
+
+void INIT_Timer1()
+{
+	TCCR1A = 0x00;
+	TCCR1B |= (1 << CS12)|(1 << CS10);
+	
+	TCNT1 = 57723;
+	
+	TIMSK |= (1 << TOIE1);
+	
+}

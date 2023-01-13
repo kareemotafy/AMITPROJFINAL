@@ -17,7 +17,7 @@
 #define Display1Pin 1
 #define Display2Port PORTA
 #define Display2Pin 2
-#define MultiplexDelay 5
+#define MultiplexDelay 10
 
 
 	void SSD_write(char num);

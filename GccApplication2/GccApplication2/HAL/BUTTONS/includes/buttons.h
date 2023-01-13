@@ -23,6 +23,7 @@
 #include <avr/eeprom.h>
 #include "BitMath.h"
 #include <avr/interrupt.h>
+#include "ssd.h"
 extern char setting;
 extern char settemp;
 extern char count;

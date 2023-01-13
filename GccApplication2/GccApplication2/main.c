@@ -6,11 +6,11 @@
  */
 //
 #include <avr/io.h>
-
 char setting=0;
 char settemp=60;
 char count=0;
 char iteration;
+#include "EEPROM.h"
 #include "buttons.h"
 #include "ssd.h"
 #include "LM35.h"
@@ -19,6 +19,28 @@ char iteration;
 #include "TCS.h"
 #include "Timer.h"
 char on = 0;  // variable to hold button state (0 or 1)
+
+ISR (TIMER1_OVF_vect)    // Timer1 ISR
+{
+	
+	
+	if (setting==1)
+	{
+		PORTB=0xff;
+		
+		if (count==9)
+		{
+			setting=0;
+			count=1;
+		}
+		
+	}
+	TCNT1 = 57723;   
+	count++;
+	
+}
+
+
 
 ISR(INT0_vect)
 {
@@ -29,9 +51,12 @@ ISR(INT0_vect)
 
 int main(void) {
 	
-	eeprom_write_byte ((int*)0x55,settemp);
+	
+	
+	INIT_eeprom();
 	INIT_buttons();
 	INIT_SSD();
+	INIT_Timer1();
 	INIT_HeaterCooler();
 	LM35_Init(ADC_Channel0);
 	while (1)
@@ -39,9 +64,6 @@ int main(void) {
 		
 		if (on)
 		{
-			
-			HEATER_ON();
-			
 			UpdateSetTemp();
 			
 			if(!setting)
@@ -50,20 +72,15 @@ int main(void) {
 			}
 			else
 			{
-					 SSD_blink(settemp);
-			
-					if (count==25)
-					{
-						setting=0;
-					}
-					
-					
-					if ((count==0)&&(setting==1))
-					{
-						iteration++;
-					}
-					count++;
+				if (count%2==0)
+				{
+					{SSD_write(settemp);}
+				}
+				
+				
 			}
+					
+			
 			
 			
 			
@@ -74,7 +91,7 @@ int main(void) {
 			HEATER_OFF();
 			COOLER_OFF();
 			setting=0;
-			count=0;
+			count=1;
 		}
 		
 		
