@@ -21,6 +21,7 @@ void INIT_buttons()
 		ClearBit(downDDR,downPin);
 		GICR = 1<<INT0;		/* Enable INT0*/
 		MCUCR = 1<<ISC01 | 1<<ISC00;  /* Trigger INT0 on rising edge */
+		sei();
 }
 
 void UpdateSetTemp()

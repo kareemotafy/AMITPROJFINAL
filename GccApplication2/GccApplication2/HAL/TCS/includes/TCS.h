@@ -9,7 +9,20 @@
 #ifndef TCS_H_
 #define TCS_H_
 
+#include <avr/io.h>
+#include "BitMath.h"
+#include "LM35.h"
+#include "EEPROM.h"
+#define heaterPort PORTD
+#define heaterDDR DDRD
+#define heaterPin 7
+#define coolerPort PORTD
+#define coolerDDR DDRD
+#define coolerPin 6
 
+
+
+void INIT_HeaterCooler();
 
 void COOLER_ON();
 

@@ -5,27 +5,31 @@
  *  Author: Kareem
  */ 
 
-#include <avr/io.h>
-#include "BitMath.h"
-#include "LM35.h"
-#include "EEPROM.h"
+#include "TCS.h"
+
+void INIT_HeaterCooler()
+{
+	SetBit(heaterDDR,heaterPin);
+	SetBit(coolerDDR,coolerPin);
+	
+}
 
 void COOLER_ON()
 {
-	SetBit(PORTD, 6);
+	SetBit(coolerPort, coolerPin);
 }
 
 void COOLER_OFF()
 {
-	ClearBit(PORTD, 6);
+	ClearBit(coolerPort, coolerPin);
 }
 void HEATER_ON()
 {
-	SetBit(PORTD, 7);
+	SetBit(heaterPort, heaterPin);
 }
 void HEATER_OFF()
 {
-	ClearBit(PORTD, 7);
+	ClearBit(heaterPort, heaterPin);
 }
 
 short temp_reading_counter = 0;

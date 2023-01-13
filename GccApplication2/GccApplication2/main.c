@@ -6,7 +6,7 @@
  */
 //
 #include <avr/io.h>
-#include <avr/interrupt.h>
+
 char setting=0;
 char settemp=60;
 char count=0;
@@ -32,13 +32,15 @@ int main(void) {
 	eeprom_write_byte ((int*)0x55,settemp);
 	INIT_buttons();
 	INIT_SSD();
-	sei();
+	INIT_HeaterCooler();
 	LM35_Init(ADC_Channel0);
 	while (1)
 	 {	
 		
 		if (on)
 		{
+			
+			HEATER_ON();
 			
 			UpdateSetTemp();
 			
@@ -48,12 +50,8 @@ int main(void) {
 			}
 			else
 			{
-					SSD_OFF();
-					_delay_ms(200);
-					SSD_write(settemp);
-				
-					
-					
+					 SSD_blink(settemp);
+			
 					if (count==25)
 					{
 						setting=0;
@@ -73,6 +71,8 @@ int main(void) {
 		else
 		{
 			SSD_OFF();
+			HEATER_OFF();
+			COOLER_OFF();
 			setting=0;
 			count=0;
 		}

@@ -22,6 +22,7 @@
 #include <avr/io.h>
 #include <avr/eeprom.h>
 #include "BitMath.h"
+#include <avr/interrupt.h>
 extern char setting;
 extern char settemp;
 extern char count;

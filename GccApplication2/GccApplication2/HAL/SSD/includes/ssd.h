@@ -19,9 +19,11 @@
 #define Display2Pin 2
 #define MultiplexDelay 5
 
+
 	void SSD_write(char num);
 	void SSD_OFF();
 	void INIT_SSD();
+	void SSD_blink(char num);
 
 
 
