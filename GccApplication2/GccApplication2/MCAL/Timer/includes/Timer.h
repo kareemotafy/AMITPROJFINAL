@@ -9,7 +9,7 @@
 #ifndef TIMER_H_
 #define TIMER_H_
 
-void INIT_Timer1();
+void INIT_Timer0();
 
 
 #endif /* TIMER_H_ */

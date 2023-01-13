@@ -13,24 +13,70 @@
 #include "TCS.h"
 #include "Clock.h"
 #include "Timer.h"
+#include "ssd.h"
+char on = 0;  // variable to hold button state (0 or 1)
+char count=0;
+char setting=0;
 
-// Timer interrupt service routine
-ISR(TIMER0_OVF_vect)
+ISR(INT0_vect)
 {
-	update_temp_reading();
+	on=~on;		
+	_delay_ms(50);  	/* Software debouncing control delay */
+	
 }
 
-int main(void)
-{
-	INIT_Timer0();
-	LM35_Init(ADC_Channel0);
-	// Enable global interrupts
+int main(void) {
+	// Configure button as input
+	DDRD=0;  // set PD2 as input
+	PORTD=0xff;  // enable pull-up resistor on PD2
+	DDRB=0xff;
+	PORTB=0;
+	GICR = 1<<INT0;		/* Enable INT0*/
+	MCUCR = 1<<ISC01 | 1<<ISC00;  /* Trigger INT0 on rising edge */
+	
 	sei();
-	while (1)
-	{
-		SetBit(PORTA, 7);
-		_delay_ms(1000);
-		ClearBit(PORTA, 7);
-		_delay_ms(1000);
+	char settemp;
+	LM35_Init(ADC_Channel0);
+	while (1) {	
+		if ((!GetBit(PIND,0))||(!GetBit(PIND,1)))
+		{
+			setting=1;
+			count=0;
+		}
+		if (on)
+		{
+			if(!setting)
+			{
+				SSD_write(LM35_Read());
+			}
+			else
+			{
+				
+				SSD_OFF();
+				_delay_ms(1000);
+				SSD_write(EEPROM_ReadByte(settemp,0x00));
+				
+				
+				
+				if (count==5)
+				{
+					setting=0;
+				}
+			
+				count++;
+			}
+			
+		}
+		else
+		{
+			SSD_OFF();
+			setting=0;
+			count=0;
+		}
+		
+		
+		
+		
+		
 	}
 }

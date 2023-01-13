@@ -6,6 +6,8 @@ HAL\EEPROM\src\EEPROM.c
 
 HAL\LM35\src\LM35.c
 
+HAL\SSD\src\ssd.c
+
 HAL\TCS\src\TCS.c
 
 main.c

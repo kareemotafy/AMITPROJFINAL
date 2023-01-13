@@ -8,7 +8,7 @@
 
 // Timer counter value for 100ms interrupt frequency
 
-void INIT_Timer0(void)
+void INIT_Timer0()
 {
 	// Set initial value of TCNT0
 	TCNT0 = 142;

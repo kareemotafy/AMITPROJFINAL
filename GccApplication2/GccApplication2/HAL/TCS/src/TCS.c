@@ -32,7 +32,7 @@ short temp_reading_counter = 0;
 short temp_reading[10] = {};
 static short current_temp = 0;
 
-void update_temp_reading(void){
+void update_temp_reading(){
 	if (temp_reading_counter < 10)
 	{
 		temp_reading[temp_reading_counter] = LM35_Read();
@@ -48,5 +48,4 @@ void update_temp_reading(void){
 		current_temp += temp_reading[i];
 	}
 	current_temp /= 10;
-	PORTD = ~PORTD;
 }
