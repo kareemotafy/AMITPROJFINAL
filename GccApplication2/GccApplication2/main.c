@@ -23,10 +23,9 @@ char on = 0;  // variable to hold button state (0 or 1)
 ISR (TIMER1_OVF_vect)    // Timer1 ISR
 {
 	
-	
 	if (setting==1)
 	{
-		PORTB=0xff;
+		SSD_OFF();
 		
 		if (count==9)
 		{
@@ -37,6 +36,7 @@ ISR (TIMER1_OVF_vect)    // Timer1 ISR
 	}
 	TCNT1 = 57723;   
 	count++;
+	
 	
 }
 
@@ -72,10 +72,10 @@ int main(void) {
 			}
 			else
 			{
+				
 				if (count%2==0)
-				{
 					{SSD_write(settemp);}
-				}
+				
 				
 				
 			}
