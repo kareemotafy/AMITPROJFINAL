@@ -33,19 +33,19 @@ void HEATER_OFF()
 
 short temp_reading_counter = 0;
 short temp_reading[10] = {};
-short current_temp = 0;
+long int current_temp = 0;
 
 void TCS_Actuator()
 {
 	char settemp = eeprom_read_byte((int *)0x55);
-	short diff = current_temp - settemp;
+	int diff = settemp - current_temp;
 
-	if (diff > 5)
+	if (diff < -10)
 	{
 		COOLER_ON();
 		HEATER_OFF();
 	}
-	else if (diff < -5)
+	else if (diff > 0)
 	{
 		HEATER_ON();
 		COOLER_OFF();
@@ -68,12 +68,11 @@ void TCS_Handler()
 	else
 	{
 		temp_reading_counter = 0;
+		for (int i = 0; i < 10; i++)
+		{
+			current_temp += temp_reading[i];
+		}
+		current_temp /= 10;
+		TCS_Actuator();
 	}
-
-	for (int i = 0; i < 10; i++)
-	{
-		current_temp += temp_reading[i];
-	}
-	current_temp /= 10;
-	TCS_Actuator();
 }
