@@ -31,4 +31,6 @@ void HEATER_OFF();
 
 void TCS_Handler();
 
+void TCS_Actuator();
+
 #endif /* TCS_H_ */

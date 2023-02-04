@@ -31,12 +31,32 @@ void HEATER_OFF()
 	ClearBit(heaterPort, heaterPin);
 }
 
+short temp_reading_counter = 0;
+short temp_reading[10] = {};
+short current_temp = 0;
+
+void TCS_Actuator()
+{
+	char settemp = eeprom_read_byte((int *)0x55);
+	if (current_temp > settemp)
+	{
+		COOLER_ON();
+		HEATER_OFF();
+	}
+	else if (current_temp < settemp)
+	{
+		HEATER_ON();
+		COOLER_OFF();
+	}
+	else
+	{
+		HEATER_OFF();
+		COOLER_OFF();
+	}
+}
+
 void TCS_Handler()
 {
-	short temp_reading_counter = 0;
-	short temp_reading[10] = {};
-	char current_temp = 0;
-	char settemp = eeprom_read_byte((int *)0x55);
 
 	if (temp_reading_counter < 10)
 	{
@@ -53,22 +73,5 @@ void TCS_Handler()
 		current_temp += temp_reading[i];
 	}
 	current_temp /= 10;
-
-	if (current_temp > settemp)
-	{
-		COOLER_ON();
-		HEATER_OFF();
-	}
-	else if (current_temp < settemp)
-	{
-		HEATER_ON();
-		COOLER_OFF();
-	}
-	else
-	{
-		HEATER_OFF();
-		COOLER_OFF();
-	}
-
-	TCNT0 = 6;
+	TCS_Actuator();
 }
