@@ -9,6 +9,5 @@ extern char settemp;
 void INIT_eeprom()
 {
 
-		eeprom_write_byte ((int*)0x55,settemp);
-	
+	eeprom_write_byte((int *)0x55, settemp);
 }

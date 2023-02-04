@@ -3,15 +3,14 @@
  *
  * Created: 1/5/2023 11:04:25 PM
  *  Author: Kareem
- */ 
+ */
 
 #include "TCS.h"
 
 void INIT_HeaterCooler()
 {
-	SetBit(heaterDDR,heaterPin);
-	SetBit(coolerDDR,coolerPin);
-	
+	SetBit(heaterDDR, heaterPin);
+	SetBit(coolerDDR, coolerPin);
 }
 
 void COOLER_ON()
@@ -32,11 +31,13 @@ void HEATER_OFF()
 	ClearBit(heaterPort, heaterPin);
 }
 
-short temp_reading_counter = 0;
-short temp_reading[10] = {};
-char current_temp = 0;
-char settemp;
-void update_temp_reading(){
+void TCS_Handler()
+{
+	short temp_reading_counter = 0;
+	short temp_reading[10] = {};
+	char current_temp = 0;
+	char settemp = eeprom_read_byte((int *)0x55);
+
 	if (temp_reading_counter < 10)
 	{
 		temp_reading[temp_reading_counter] = LM35_Read();
@@ -52,5 +53,22 @@ void update_temp_reading(){
 		current_temp += temp_reading[i];
 	}
 	current_temp /= 10;
-	//EEPROM_writeByte(current_temp,0xC7);
+
+	if (current_temp > settemp)
+	{
+		COOLER_ON();
+		HEATER_OFF();
+	}
+	else if (current_temp < settemp)
+	{
+		HEATER_ON();
+		COOLER_OFF();
+	}
+	else
+	{
+		HEATER_OFF();
+		COOLER_OFF();
+	}
+
+	TCNT0 = 6;
 }
