@@ -402,8 +402,8 @@ void TCS_Actuator()
  21e:	82 1b       	sub	r24, r18
  220:	93 0b       	sbc	r25, r19
 
-	if (diff < -10)
- 222:	86 3f       	cpi	r24, 0xF6	; 246
+	if (diff < -11)
+ 222:	85 3f       	cpi	r24, 0xF5	; 245
  224:	2f ef       	ldi	r18, 0xFF	; 255
  226:	92 07       	cpc	r25, r18
  228:	2c f4       	brge	.+10     	; 0x234 <TCS_Actuator+0x28>
@@ -414,10 +414,10 @@ void TCS_Actuator()
  22e:	0e 94 04 01 	call	0x208	; 0x208 <HEATER_OFF>
  232:	08 95       	ret
 	}
-	else if (diff > 0)
- 234:	18 16       	cp	r1, r24
- 236:	19 06       	cpc	r1, r25
- 238:	2c f4       	brge	.+10     	; 0x244 <TCS_Actuator+0x38>
+	else if (diff > -2)
+ 234:	8f 3f       	cpi	r24, 0xFF	; 255
+ 236:	9f 4f       	sbci	r25, 0xFF	; 255
+ 238:	2c f0       	brlt	.+10     	; 0x244 <TCS_Actuator+0x38>
 	{
 		HEATER_ON();
  23a:	0e 94 02 01 	call	0x204	; 0x204 <HEATER_ON>

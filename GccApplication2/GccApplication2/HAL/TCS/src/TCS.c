@@ -40,12 +40,12 @@ void TCS_Actuator()
 	char settemp = eeprom_read_byte((int *)0x55);
 	int diff = settemp - current_temp;
 
-	if (diff < -10)
+	if (diff < -11)
 	{
 		COOLER_ON();
 		HEATER_OFF();
 	}
-	else if (diff > 0)
+	else if (diff > -2)
 	{
 		HEATER_ON();
 		COOLER_OFF();
