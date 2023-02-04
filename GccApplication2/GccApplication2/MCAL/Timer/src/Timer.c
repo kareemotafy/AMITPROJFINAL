@@ -10,14 +10,12 @@
 
 void INIT_Timer0()
 {
-	// Set initial value of TCNT0
-	TCNT0 = 142;
-
-	// Set Timer0 to Normal mode with prescaler of 64
-	TCCR0 = (1 << CS01) | (1 << CS00);
-
-	// Enable Timer0 overflow interrupt
-	TIMSK |= (1 << TOIE0);
+	
+	TIMSK=(1<<TOIE0);  	/* Enable Timer0 overflow interrupts */
+	
+	TCNT0 = 178;  		/* Load TCNT0, count for 10ms*/
+	TCCR0 = (1<<CS02) | (1<<CS00); /* Start timer0 with /1024 prescaler*/
+	
 }
 
 void INIT_Timer1()

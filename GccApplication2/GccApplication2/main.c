@@ -9,6 +9,7 @@
 char setting = 0;
 char settemp = 60;
 char count = 0;
+char timer2Count=0;
 char iteration;
 #include "EEPROM.h"
 #include "buttons.h"
@@ -37,9 +38,15 @@ ISR(TIMER1_OVF_vect) // Timer1 ISR
 	count++;
 }
 
-ISR(TIMER0_OVF_vect) // Timer0 ISR
+ISR(TIMER0_OVF_vect) // Timer2 ISR
 {
-	TCS_Handler();
+	timer2Count++;
+	if (timer2Count==10)
+	{
+		timer2Count=0;
+		TCS_Handler();
+	}
+	
 }
 
 ISR(INT0_vect)
