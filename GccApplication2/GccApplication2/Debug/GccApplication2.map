@@ -89,8 +89,6 @@ Discarded input sections
  .text          0x00000000        0x0 MCAL/Timer/src/Timer.o
  .data          0x00000000        0x0 MCAL/Timer/src/Timer.o
  .bss           0x00000000        0x0 MCAL/Timer/src/Timer.o
- .text.INIT_Timer1
-                0x00000000       0x18 MCAL/Timer/src/Timer.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
@@ -663,7 +661,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x1c8
+.debug_aranges  0x00000000      0x1c0
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x28 HAL/BUTTONS/src/buttons.o
@@ -680,16 +678,16 @@ END GROUP
  .debug_aranges
                 0x00000138       0x28 MCAL/ADC/src/ADC.o
  .debug_aranges
-                0x00000160       0x28 MCAL/Timer/src/Timer.o
+                0x00000160       0x20 MCAL/Timer/src/Timer.o
  .debug_aranges
-                0x00000188       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eerd_byte.o)
+                0x00000180       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eerd_byte.o)
  .debug_aranges
-                0x000001a8       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eewr_byte.o)
+                0x000001a0       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eewr_byte.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x136c
+.debug_info     0x00000000     0x134c
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5/crtatmega32a.o
  .debug_info    0x000004e6      0x140 HAL/BUTTONS/src/buttons.o
@@ -699,9 +697,9 @@ END GROUP
  .debug_info    0x00000a3b      0x280 HAL/TCS/src/TCS.o
  .debug_info    0x00000cbb      0x303 main.o
  .debug_info    0x00000fbe      0x1da MCAL/ADC/src/ADC.o
- .debug_info    0x00001198       0xa2 MCAL/Timer/src/Timer.o
- .debug_info    0x0000123a       0x99 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eerd_byte.o)
- .debug_info    0x000012d3       0x99 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eewr_byte.o)
+ .debug_info    0x00001198       0x82 MCAL/Timer/src/Timer.o
+ .debug_info    0x0000121a       0x99 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eerd_byte.o)
+ .debug_info    0x000012b3       0x99 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eewr_byte.o)
 
 .debug_abbrev   0x00000000      0xb29
  *(.debug_abbrev)
@@ -717,7 +715,7 @@ END GROUP
  .debug_abbrev  0x00000b01       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eerd_byte.o)
  .debug_abbrev  0x00000b15       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eewr_byte.o)
 
-.debug_line     0x00000000      0xd5b
+.debug_line     0x00000000      0xd33
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5/crtatmega32a.o
  .debug_line    0x00000116      0x217 HAL/BUTTONS/src/buttons.o
@@ -727,11 +725,11 @@ END GROUP
  .debug_line    0x000005ad      0x294 HAL/TCS/src/TCS.o
  .debug_line    0x00000841      0x241 main.o
  .debug_line    0x00000a82       0xe4 MCAL/ADC/src/ADC.o
- .debug_line    0x00000b66       0xe3 MCAL/Timer/src/Timer.o
- .debug_line    0x00000c49       0x7a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eerd_byte.o)
- .debug_line    0x00000cc3       0x98 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eewr_byte.o)
+ .debug_line    0x00000b66       0xbb MCAL/Timer/src/Timer.o
+ .debug_line    0x00000c21       0x7a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eerd_byte.o)
+ .debug_line    0x00000c9b       0x98 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5\libatmega32a.a(eewr_byte.o)
 
-.debug_frame    0x00000000      0x29c
+.debug_frame    0x00000000      0x28c
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 HAL/BUTTONS/src/buttons.o
  .debug_frame   0x00000034       0x24 HAL/EEPROM/src/EEPROM.o
@@ -740,9 +738,9 @@ END GROUP
  .debug_frame   0x000000d8       0xc0 HAL/TCS/src/TCS.o
  .debug_frame   0x00000198       0x9c main.o
  .debug_frame   0x00000234       0x34 MCAL/ADC/src/ADC.o
- .debug_frame   0x00000268       0x34 MCAL/Timer/src/Timer.o
+ .debug_frame   0x00000268       0x24 MCAL/Timer/src/Timer.o
 
-.debug_str      0x00000000      0x6af
+.debug_str      0x00000000      0x69a
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32a/avr5/crtatmega32a.o
  .debug_str     0x00000196      0x1ab HAL/BUTTONS/src/buttons.o
@@ -759,8 +757,8 @@ END GROUP
                                 0x2f0 (size before relaxing)
  .debug_str     0x00000653       0x2d MCAL/ADC/src/ADC.o
                                 0x262 (size before relaxing)
- .debug_str     0x00000680       0x2f MCAL/Timer/src/Timer.o
-                                0x19f (size before relaxing)
+ .debug_str     0x00000680       0x1a MCAL/Timer/src/Timer.o
+                                0x18a (size before relaxing)
 
 .debug_loc      0x00000000      0x2c8
  *(.debug_loc)
@@ -788,7 +786,7 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x108
+.debug_ranges   0x00000000      0x100
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x18 HAL/BUTTONS/src/buttons.o
  .debug_ranges  0x00000018       0x10 HAL/EEPROM/src/EEPROM.o
@@ -797,7 +795,7 @@ END GROUP
  .debug_ranges  0x00000060       0x58 HAL/TCS/src/TCS.o
  .debug_ranges  0x000000b8       0x20 main.o
  .debug_ranges  0x000000d8       0x18 MCAL/ADC/src/ADC.o
- .debug_ranges  0x000000f0       0x18 MCAL/Timer/src/Timer.o
+ .debug_ranges  0x000000f0       0x10 MCAL/Timer/src/Timer.o
 
 .debug_macro
  *(.debug_macro)
