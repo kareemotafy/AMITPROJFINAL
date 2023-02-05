@@ -6,11 +6,12 @@
  */
 
 #include "TCS.h"
-
+extern char ledStatus;
 void INIT_HeaterCooler()
 {
 	SetBit(heaterDDR, heaterPin);
 	SetBit(coolerDDR, coolerPin);
+	SetBit(ledDDR, ledPin);
 }
 
 void COOLER_ON()
@@ -31,6 +32,28 @@ void HEATER_OFF()
 	ClearBit(heaterPort, heaterPin);
 }
 
+void HEATER_LED()
+{
+	if (ledStatus)
+	{
+	  SetBit(ledPort,ledPin);
+	}
+	if (!ledStatus)
+	{
+		ClearBit(ledPort,ledPin);
+	}
+}
+
+void COOLER_LED()
+{
+	SetBit(ledPort,ledPin);
+}
+
+void LED_OFF()
+{
+	ClearBit(ledPort,ledPin);
+}
+
 short temp_reading_counter = 0;
 short temp_reading[10] = {};
 long int current_temp = 0;
@@ -44,16 +67,19 @@ void TCS_Actuator()
 	{
 		COOLER_ON();
 		HEATER_OFF();
+		COOLER_LED();
 	}
 	else if (diff > -2)
 	{
 		HEATER_ON();
 		COOLER_OFF();
+		HEATER_LED();
 	}
 	else
 	{
 		HEATER_OFF();
 		COOLER_OFF();
+		LED_OFF();
 	}
 }
 

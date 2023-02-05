@@ -18,6 +18,9 @@
 #define coolerPort PORTD
 #define coolerDDR DDRD
 #define coolerPin 6
+#define ledPin 3
+#define ledPort PORTD
+#define ledDDR DDRD
 
 void INIT_HeaterCooler();
 
@@ -28,6 +31,8 @@ void COOLER_OFF();
 void HEATER_ON();
 
 void HEATER_OFF();
+
+void LED_OFF();
 
 void TCS_Handler();
 

@@ -10,7 +10,6 @@
 char setting;
 char settemp;
 char count;
-char iteration;
 
 void INIT_buttons()
 {
@@ -56,6 +55,5 @@ void UpdateSetTemp()
 		setting = 1;
 		count = 0;
 		settemp = eeprom_read_byte((int *)0x55);
-		TCNT1 = 57723;
 	}
 }

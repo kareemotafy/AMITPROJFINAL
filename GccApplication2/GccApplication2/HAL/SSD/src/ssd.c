@@ -9,6 +9,7 @@
 char number[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90};
 char units;
 char tens;
+extern char SSDMultiplex;
 
 	void INIT_SSD()
 	{
@@ -28,16 +29,21 @@ char tens;
 			units=num%10;
 			tens=num/10;
 			
-			SSD_port=number[units];
-			_delay_ms(MultiplexDelay);
-			ClearBit(Display1Port,Display1Pin);
-			SetBit(Display2Port,Display2Pin);
-			
-			
-			SSD_port=number[tens];
-			_delay_ms(MultiplexDelay);	
-			SetBit(Display1Port,Display1Pin);
-			ClearBit(Display2Port,Display2Pin);	
+			if (!SSDMultiplex)
+			{
+				
+				SetBit(Display1Port,Display1Pin);
+				ClearBit(Display2Port,Display2Pin);
+				SSD_port=number[units];
+			}
+			else
+			{
+				
+				ClearBit(Display1Port,Display1Pin);
+				SetBit(Display2Port,Display2Pin);
+				SSD_port=number[tens];
+				
+			}
 	}
 	
 	

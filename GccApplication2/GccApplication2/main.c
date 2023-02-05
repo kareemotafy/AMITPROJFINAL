@@ -9,7 +9,11 @@
 char setting = 0;
 char settemp = 60;
 char count = 0;
-char timer2Count = 0;
+char settingCounter=0;
+char timer0Count = 0;
+char timer0CountSSD = 0;
+char ledStatus=0;
+char SSDMultiplex=1;
 char iteration;
 #include "EEPROM.h"
 #include "buttons.h"
@@ -21,37 +25,58 @@ char iteration;
 #include "Timer.h"
 char on = 0; // variable to hold button state (0 or 1)
 
-ISR(TIMER1_OVF_vect) // Timer1 ISR
+
+ISR(TIMER0_OVF_vect) // Timer0 ISR
 {
-
-	if (setting == 1)
+	if (timer0CountSSD>=1)
 	{
-		PORTB = 0xff;
-
-		if (count == 9)
+		if (SSDMultiplex==1)
 		{
-			setting = 0;
-			count = 1;
+			SSDMultiplex=0;
 		}
+		else
+		{
+			SSDMultiplex=1;
+		}
+		timer0CountSSD=0;
 	}
-	TCNT1 = 57723;
-	count++;
-}
-
-ISR(TIMER0_OVF_vect) // Timer2 ISR
-{
-	timer2Count++;
-	if (timer2Count == 1)
+	
+	timer0Count++;
+	timer0CountSSD++;
+	settingCounter++;
+	
+	
+	if (settingCounter>=30)
 	{
-		timer2Count = 0;
-		TCS_Handler();
+		ledStatus=~ledStatus;
+		if (setting == 1)
+		{
+			SSD_OFF();
+
+			if (count == 9)
+			{
+				setting = 0;
+				count = 1;
+			}
+		}
+		count++;
+		settingCounter=0;
 	}
+	
+	if (timer0Count >= 3)
+	{
+		timer0Count = 0;
+		TCS_Handler();
+		
+	}
+	
+	
 }
 
 ISR(INT0_vect)
 {
 	on = ~on;
-	_delay_ms(50); /* Software debouncing control delay */
+
 }
 
 int main(void)
@@ -61,11 +86,11 @@ int main(void)
 	INIT_buttons();
 	INIT_SSD();
 	INIT_Timer0();
-	INIT_Timer1();
 	INIT_HeaterCooler();
 	LM35_Init(ADC_Channel0);
 	while (1)
 	{
+		
 
 		if (on)
 		{
@@ -77,10 +102,13 @@ int main(void)
 			}
 			else
 			{
-
 				if (count % 2 == 0)
 				{
 					SSD_write(settemp);
+				}
+				else
+				{
+					SSD_OFF();
 				}
 			}
 		}
@@ -88,6 +116,7 @@ int main(void)
 		{
 			SSD_OFF();
 			HEATER_OFF();
+			LED_OFF();
 			COOLER_OFF();
 			setting = 0;
 			count = 1;
