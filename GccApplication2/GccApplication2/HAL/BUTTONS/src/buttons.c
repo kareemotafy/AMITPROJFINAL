@@ -8,7 +8,7 @@
 #include "buttons.h"
 
 char setting;
-char settemp;
+extern char settemp;
 char count;
 
 void INIT_buttons()

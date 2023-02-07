@@ -8,6 +8,15 @@
 extern char settemp;
 void INIT_eeprom()
 {
-
-	eeprom_write_byte((int *)0x55, settemp);
+	if (eeprom_read_byte((int*)0x55)!=0xff)
+	{
+		settemp=eeprom_read_byte((int*)0x55);
+	}
+	else
+	{
+		eeprom_write_byte((int*)0x55, settemp);	
+	}
+	
+		
+	
 }
