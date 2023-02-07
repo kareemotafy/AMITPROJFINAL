@@ -58,6 +58,7 @@ short temp_reading_counter = 0;
 short temp_reading[10] = {};
 long int current_temp = 0;
 
+// activates the cooler or the heater depending on the temperature and settemp
 void TCS_Actuator()
 {
 	char settemp = eeprom_read_byte((int *)0x55);
@@ -83,6 +84,8 @@ void TCS_Actuator()
 	}
 }
 
+// reads the temperature from the LM35 sensor
+// and stores it in an array of 10 elements with average value
 void TCS_Handler()
 {
 
