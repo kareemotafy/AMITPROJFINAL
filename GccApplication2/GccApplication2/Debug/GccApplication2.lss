@@ -96,46 +96,24 @@ Disassembly of section .text:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 00000092 <INIT_buttons>:
-extern char settemp;
-char count;
-
-void INIT_buttons()
-{
-	SetBit(OnOffPort, OnOffPin);
   92:	92 9a       	sbi	0x12, 2	; 18
-	ClearBit(OnOffDDR, OnOffPin);
   94:	8a 98       	cbi	0x11, 2	; 17
-	SetBit(upPort, upPin);
   96:	90 9a       	sbi	0x12, 0	; 18
-	ClearBit(upDDR, upPin);
   98:	88 98       	cbi	0x11, 0	; 17
-	SetBit(downPort, downPin);
   9a:	91 9a       	sbi	0x12, 1	; 18
-	ClearBit(downDDR, downPin);
   9c:	89 98       	cbi	0x11, 1	; 17
-	GICR = 1 << INT0;				 /* Enable INT0*/
   9e:	80 e4       	ldi	r24, 0x40	; 64
   a0:	8b bf       	out	0x3b, r24	; 59
-	MCUCR = 1 << ISC01 | 1 << ISC00; /* Trigger INT0 on rising edge */
   a2:	83 e0       	ldi	r24, 0x03	; 3
   a4:	85 bf       	out	0x35, r24	; 53
-	sei();
   a6:	78 94       	sei
   a8:	08 95       	ret
 
 000000aa <UpdateSetTemp>:
-
-// updates eeprom in setting mode
-void UpdateSetTemp()
-{
-
-	if ((!GetBit(PIND, 0)) || (!GetBit(PIND, 1)))
   aa:	80 9b       	sbis	0x10, 0	; 16
   ac:	02 c0       	rjmp	.+4      	; 0xb2 <UpdateSetTemp+0x8>
   ae:	81 99       	sbic	0x10, 1	; 16
   b0:	43 c0       	rjmp	.+134    	; 0x138 <UpdateSetTemp+0x8e>
-	{
-		if ((setting == 1) && (!GetBit(PIND, 0)) && (count > 0))
   b2:	80 91 77 00 	lds	r24, 0x0077	; 0x800077 <setting>
   b6:	81 30       	cpi	r24, 0x01	; 1
   b8:	71 f5       	brne	.+92     	; 0x116 <UpdateSetTemp+0x6c>
@@ -144,36 +122,17 @@ void UpdateSetTemp()
   be:	80 91 76 00 	lds	r24, 0x0076	; 0x800076 <count>
   c2:	88 23       	and	r24, r24
   c4:	99 f0       	breq	.+38     	; 0xec <UpdateSetTemp+0x42>
-		{
-			if (!(settemp >= maxTemp))
   c6:	80 91 70 00 	lds	r24, 0x0070	; 0x800070 <settemp>
   ca:	8b 34       	cpi	r24, 0x4B	; 75
   cc:	18 f4       	brcc	.+6      	; 0xd4 <UpdateSetTemp+0x2a>
-			{
-				settemp += 5;
   ce:	8b 5f       	subi	r24, 0xFB	; 251
   d0:	80 93 70 00 	sts	0x0070, r24	; 0x800070 <settemp>
-			}
-			while (!GetBit(PIND, 0))
   d4:	80 99       	sbic	0x10, 0	; 16
   d6:	0a c0       	rjmp	.+20     	; 0xec <UpdateSetTemp+0x42>
-			{
-				SSD_write(settemp);
   d8:	80 91 70 00 	lds	r24, 0x0070	; 0x800070 <settemp>
   dc:	0e 94 cd 00 	call	0x19a	; 0x19a <SSD_write>
-		{
-			if (!(settemp >= maxTemp))
-			{
-				settemp += 5;
-			}
-			while (!GetBit(PIND, 0))
   e0:	80 9b       	sbis	0x10, 0	; 16
   e2:	fa cf       	rjmp	.-12     	; 0xd8 <UpdateSetTemp+0x2e>
-			{
-				SSD_write(settemp);
-			}
-		}
-		if ((setting == 1) && (!GetBit(PIND, 1)) && (settemp > miniTemp) && (count > 0))
   e4:	80 91 77 00 	lds	r24, 0x0077	; 0x800077 <setting>
   e8:	81 30       	cpi	r24, 0x01	; 1
   ea:	a9 f4       	brne	.+42     	; 0x116 <UpdateSetTemp+0x6c>
@@ -185,43 +144,21 @@ void UpdateSetTemp()
   f8:	90 91 76 00 	lds	r25, 0x0076	; 0x800076 <count>
   fc:	99 23       	and	r25, r25
   fe:	59 f0       	breq	.+22     	; 0x116 <UpdateSetTemp+0x6c>
-		{
-			if (!(settemp <= miniTemp))
-			{
-				settemp -= 5;
  100:	85 50       	subi	r24, 0x05	; 5
  102:	80 93 70 00 	sts	0x0070, r24	; 0x800070 <settemp>
-			}
-			while (!GetBit(PIND, 1))
  106:	81 99       	sbic	0x10, 1	; 16
  108:	06 c0       	rjmp	.+12     	; 0x116 <UpdateSetTemp+0x6c>
-			{
-				SSD_write(settemp);
  10a:	80 91 70 00 	lds	r24, 0x0070	; 0x800070 <settemp>
  10e:	0e 94 cd 00 	call	0x19a	; 0x19a <SSD_write>
-		{
-			if (!(settemp <= miniTemp))
-			{
-				settemp -= 5;
-			}
-			while (!GetBit(PIND, 1))
  112:	81 9b       	sbis	0x10, 1	; 16
  114:	fa cf       	rjmp	.-12     	; 0x10a <UpdateSetTemp+0x60>
-			{
-				SSD_write(settemp);
-			}
-		}
-		eeprom_write_byte((int *)0x55, settemp);
  116:	60 91 70 00 	lds	r22, 0x0070	; 0x800070 <settemp>
  11a:	85 e5       	ldi	r24, 0x55	; 85
  11c:	90 e0       	ldi	r25, 0x00	; 0
  11e:	0e 94 e3 03 	call	0x7c6	; 0x7c6 <eeprom_write_byte>
-		setting = 1;
  122:	81 e0       	ldi	r24, 0x01	; 1
  124:	80 93 77 00 	sts	0x0077, r24	; 0x800077 <setting>
-		count = 0;
  128:	10 92 76 00 	sts	0x0076, r1	; 0x800076 <count>
-		settemp = eeprom_read_byte((int *)0x55);
  12c:	85 e5       	ldi	r24, 0x55	; 85
  12e:	90 e0       	ldi	r25, 0x00	; 0
  130:	0e 94 db 03 	call	0x7b6	; 0x7b6 <eeprom_read_byte>
@@ -229,25 +166,13 @@ void UpdateSetTemp()
  138:	08 95       	ret
 
 0000013a <INIT_eeprom>:
- */
-#include "EEPROM.h"
-extern char settemp;
-void INIT_eeprom()
-{
-	if (eeprom_read_byte((int*)0x55)!=0xff)
  13a:	85 e5       	ldi	r24, 0x55	; 85
  13c:	90 e0       	ldi	r25, 0x00	; 0
  13e:	0e 94 db 03 	call	0x7b6	; 0x7b6 <eeprom_read_byte>
  142:	8f 3f       	cpi	r24, 0xFF	; 255
  144:	19 f0       	breq	.+6      	; 0x14c <INIT_eeprom+0x12>
-	{
-		settemp=eeprom_read_byte((int*)0x55);
  146:	80 93 70 00 	sts	0x0070, r24	; 0x800070 <settemp>
  14a:	08 95       	ret
-	}
-	else
-	{
-		eeprom_write_byte((int*)0x55, settemp);	
  14c:	60 91 70 00 	lds	r22, 0x0070	; 0x800070 <settemp>
  150:	85 e5       	ldi	r24, 0x55	; 85
  152:	90 e0       	ldi	r25, 0x00	; 0
@@ -255,25 +180,47 @@ void INIT_eeprom()
  158:	08 95       	ret
 
 0000015a <LM35_Init>:
+ * Created: 1/5/2023 11:09:05 PM
+ *  Author: Kareem
+ */
+#include "LM35.h"
+void LM35_Init(ADC_Channel Channel_confg)
+{
  15a:	cf 93       	push	r28
  15c:	c8 2f       	mov	r28, r24
+	ADC_ConfigStruct *ptr = (ADC_ConfigStruct *)(malloc(sizeof(ADC_ConfigStruct)));
  15e:	84 e0       	ldi	r24, 0x04	; 4
  160:	90 e0       	ldi	r25, 0x00	; 0
  162:	0e 94 ba 02 	call	0x574	; 0x574 <malloc>
+	;
+	ptr->PSC = PSC_64;
  166:	26 e0       	ldi	r18, 0x06	; 6
  168:	fc 01       	movw	r30, r24
  16a:	20 83       	st	Z, r18
+	ptr->RMode = Polling;
  16c:	11 82       	std	Z+1, r1	; 0x01
+	ptr->VRef = VInternal;
  16e:	23 e0       	ldi	r18, 0x03	; 3
  170:	22 83       	std	Z+2, r18	; 0x02
+	ptr->Channel = Channel_confg;
  172:	c3 83       	std	Z+3, r28	; 0x03
+	ADC_Init(ptr);
  174:	0e 94 3f 02 	call	0x47e	; 0x47e <ADC_Init>
+}
  178:	cf 91       	pop	r28
  17a:	08 95       	ret
 
 0000017c <LM35_Read>:
+
+unsigned short int LM35_Read(void)
+{
+	unsigned short int temp;
+
+	temp = ADC_Read(ADC_Channel0) / 4;
  17c:	80 e0       	ldi	r24, 0x00	; 0
  17e:	0e 94 6a 02 	call	0x4d4	; 0x4d4 <ADC_Read>
+
+	return temp;
  182:	96 95       	lsr	r25
  184:	87 95       	ror	r24
  186:	96 95       	lsr	r25
@@ -281,17 +228,35 @@ void INIT_eeprom()
  18a:	08 95       	ret
 
 0000018c <INIT_SSD>:
+char tens;
+extern char SSDMultiplex;
+
+	void INIT_SSD()
+	{
+		DDRB=0xff;
  18c:	8f ef       	ldi	r24, 0xFF	; 255
  18e:	87 bb       	out	0x17, r24	; 23
+		PORTB=0;
  190:	18 ba       	out	0x18, r1	; 24
  192:	08 95       	ret
 
 00000194 <SSD_OFF>:
+	}
+	
+	void SSD_OFF()
+	{
+		SSD_port=0x7f;
  194:	8f e7       	ldi	r24, 0x7F	; 127
  196:	88 bb       	out	0x18, r24	; 24
  198:	08 95       	ret
 
 0000019a <SSD_write>:
+	
+	
+	
+	void SSD_write(char num)
+	{
+			units=num%10;
  19a:	9d ec       	ldi	r25, 0xCD	; 205
  19c:	89 9f       	mul	r24, r25
  19e:	91 2d       	mov	r25, r1
@@ -307,12 +272,20 @@ void INIT_eeprom()
  1b2:	23 0f       	add	r18, r19
  1b4:	82 1b       	sub	r24, r18
  1b6:	80 93 98 00 	sts	0x0098, r24	; 0x800098 <units>
+			tens=num/10;
  1ba:	90 93 97 00 	sts	0x0097, r25	; 0x800097 <tens>
+			
+			if (!SSDMultiplex)
  1be:	80 91 71 00 	lds	r24, 0x0071	; 0x800071 <SSDMultiplex>
  1c2:	81 11       	cpse	r24, r1
  1c4:	0a c0       	rjmp	.+20     	; 0x1da <SSD_write+0x40>
+			{
+				
+				SetBit(Display1Port,Display1Pin);
  1c6:	d9 9a       	sbi	0x1b, 1	; 27
+				ClearBit(Display2Port,Display2Pin);
  1c8:	da 98       	cbi	0x1b, 2	; 27
+				SSD_port=number[units];
  1ca:	e0 91 98 00 	lds	r30, 0x0098	; 0x800098 <units>
  1ce:	f0 e0       	ldi	r31, 0x00	; 0
  1d0:	ea 59       	subi	r30, 0x9A	; 154
@@ -320,8 +293,15 @@ void INIT_eeprom()
  1d4:	80 81       	ld	r24, Z
  1d6:	88 bb       	out	0x18, r24	; 24
  1d8:	08 95       	ret
+			}
+			else
+			{
+				
+				ClearBit(Display1Port,Display1Pin);
  1da:	d9 98       	cbi	0x1b, 1	; 27
+				SetBit(Display2Port,Display2Pin);
  1dc:	da 9a       	sbi	0x1b, 2	; 27
+				SSD_port=number[tens];
  1de:	e0 91 97 00 	lds	r30, 0x0097	; 0x800097 <tens>
  1e2:	f0 e0       	ldi	r31, 0x00	; 0
  1e4:	ea 59       	subi	r30, 0x9A	; 154
@@ -331,167 +311,343 @@ void INIT_eeprom()
  1ec:	08 95       	ret
 
 000001ee <SYSTEM_init>:
+char settemp = 60;
+
+// system initialization for all modules
+void SYSTEM_init()
+{
+	INIT_eeprom();
  1ee:	0e 94 9d 00 	call	0x13a	; 0x13a <INIT_eeprom>
+	INIT_buttons();
  1f2:	0e 94 49 00 	call	0x92	; 0x92 <INIT_buttons>
+	INIT_SSD();
  1f6:	0e 94 c6 00 	call	0x18c	; 0x18c <INIT_SSD>
+	INIT_Timer0();
  1fa:	0e 94 72 02 	call	0x4e4	; 0x4e4 <INIT_Timer0>
+	INIT_HeaterCooler();
  1fe:	0e 94 6f 01 	call	0x2de	; 0x2de <INIT_HeaterCooler>
+	LM35_Init(ADC_Channel0);
  202:	80 e0       	ldi	r24, 0x00	; 0
  204:	0e 94 ad 00 	call	0x15a	; 0x15a <LM35_Init>
  208:	08 95       	ret
 
 0000020a <SYSTEM_timer>:
+};
+
+void SYSTEM_timer()
+{
+	// multiplexing for dual panel SSD
+	if (timer0CountSSD >= 1)
  20a:	80 91 73 00 	lds	r24, 0x0073	; 0x800073 <timer0CountSSD>
  20e:	88 23       	and	r24, r24
  210:	61 f0       	breq	.+24     	; 0x22a <SYSTEM_timer+0x20>
+	{
+		if (SSDMultiplex == 1)
  212:	80 91 71 00 	lds	r24, 0x0071	; 0x800071 <SSDMultiplex>
  216:	81 30       	cpi	r24, 0x01	; 1
  218:	19 f4       	brne	.+6      	; 0x220 <SYSTEM_timer+0x16>
+		{
+			SSDMultiplex = 0;
  21a:	10 92 71 00 	sts	0x0071, r1	; 0x800071 <SSDMultiplex>
  21e:	03 c0       	rjmp	.+6      	; 0x226 <SYSTEM_timer+0x1c>
+		}
+		else
+		{
+			SSDMultiplex = 1;
  220:	81 e0       	ldi	r24, 0x01	; 1
  222:	80 93 71 00 	sts	0x0071, r24	; 0x800071 <SSDMultiplex>
+		}
+		timer0CountSSD = 0;
  226:	10 92 73 00 	sts	0x0073, r1	; 0x800073 <timer0CountSSD>
+	}
+
+	// used for tcs
+	// counts for overflows at 100ms
+	timer0Count++;
  22a:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <timer0Count>
  22e:	8f 5f       	subi	r24, 0xFF	; 255
  230:	80 93 74 00 	sts	0x0074, r24	; 0x800074 <timer0Count>
+
+	// detect when to switch ssd panels
+	// counts for overflows at ~30ms
+	timer0CountSSD++;
  234:	80 91 73 00 	lds	r24, 0x0073	; 0x800073 <timer0CountSSD>
  238:	8f 5f       	subi	r24, 0xFF	; 255
  23a:	80 93 73 00 	sts	0x0073, r24	; 0x800073 <timer0CountSSD>
+
+	// used for ssd blinking
+	// counts for overflows at 1s
+	settingCounter++;
  23e:	80 91 75 00 	lds	r24, 0x0075	; 0x800075 <settingCounter>
  242:	8f 5f       	subi	r24, 0xFF	; 255
  244:	80 93 75 00 	sts	0x0075, r24	; 0x800075 <settingCounter>
+
+	if (settingCounter >= 30)
  248:	8e 31       	cpi	r24, 0x1E	; 30
  24a:	d8 f0       	brcs	.+54     	; 0x282 <SYSTEM_timer+0x78>
+	{
+		ledStatus = ~ledStatus;
  24c:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <__data_end>
  250:	80 95       	com	r24
  252:	80 93 72 00 	sts	0x0072, r24	; 0x800072 <__data_end>
+		if (setting == 1)
  256:	80 91 77 00 	lds	r24, 0x0077	; 0x800077 <setting>
  25a:	81 30       	cpi	r24, 0x01	; 1
  25c:	59 f4       	brne	.+22     	; 0x274 <SYSTEM_timer+0x6a>
+		{
+			SSD_OFF();
  25e:	0e 94 ca 00 	call	0x194	; 0x194 <SSD_OFF>
+
+			if (count == 9)
  262:	80 91 76 00 	lds	r24, 0x0076	; 0x800076 <count>
  266:	89 30       	cpi	r24, 0x09	; 9
  268:	29 f4       	brne	.+10     	; 0x274 <SYSTEM_timer+0x6a>
+			{
+				setting = 0;
  26a:	10 92 77 00 	sts	0x0077, r1	; 0x800077 <setting>
+				count = 1;
  26e:	81 e0       	ldi	r24, 0x01	; 1
  270:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <count>
+			}
+		}
+		count++;
  274:	80 91 76 00 	lds	r24, 0x0076	; 0x800076 <count>
  278:	8f 5f       	subi	r24, 0xFF	; 255
  27a:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <count>
+		settingCounter = 0;
  27e:	10 92 75 00 	sts	0x0075, r1	; 0x800075 <settingCounter>
+	}
+
+	if (timer0Count >= 3)
  282:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <timer0Count>
  286:	83 30       	cpi	r24, 0x03	; 3
  288:	20 f0       	brcs	.+8      	; 0x292 <SYSTEM_timer+0x88>
+	{
+		timer0Count = 0;
  28a:	10 92 74 00 	sts	0x0074, r1	; 0x800074 <timer0Count>
+		TCS_Handler();
  28e:	0e 94 b1 01 	call	0x362	; 0x362 <TCS_Handler>
  292:	08 95       	ret
 
 00000294 <SYSTEM_OFF>:
+	}
+};
+
+void SYSTEM_OFF()
+{
+	SSD_OFF();
  294:	0e 94 ca 00 	call	0x194	; 0x194 <SSD_OFF>
+	HEATER_OFF();
  298:	0e 94 79 01 	call	0x2f2	; 0x2f2 <HEATER_OFF>
+	LED_OFF();
  29c:	0e 94 88 01 	call	0x310	; 0x310 <LED_OFF>
+	COOLER_OFF();
  2a0:	0e 94 75 01 	call	0x2ea	; 0x2ea <COOLER_OFF>
+	setting = 0;
  2a4:	10 92 77 00 	sts	0x0077, r1	; 0x800077 <setting>
+	count = 1;
  2a8:	81 e0       	ldi	r24, 0x01	; 1
  2aa:	80 93 76 00 	sts	0x0076, r24	; 0x800076 <count>
  2ae:	08 95       	ret
 
 000002b0 <SYSTEM_loop>:
+}
+
+void SYSTEM_loop()
+{
+
+	UpdateSetTemp();
  2b0:	0e 94 55 00 	call	0xaa	; 0xaa <UpdateSetTemp>
+
+	if (!setting)
  2b4:	80 91 77 00 	lds	r24, 0x0077	; 0x800077 <setting>
  2b8:	81 11       	cpse	r24, r1
  2ba:	05 c0       	rjmp	.+10     	; 0x2c6 <SYSTEM_loop+0x16>
+	{
+		SSD_write(LM35_Read());
  2bc:	0e 94 be 00 	call	0x17c	; 0x17c <LM35_Read>
  2c0:	0e 94 cd 00 	call	0x19a	; 0x19a <SSD_write>
  2c4:	08 95       	ret
+	}
+	else
+	{
+		if (count % 2 == 0)
  2c6:	80 91 76 00 	lds	r24, 0x0076	; 0x800076 <count>
  2ca:	80 fd       	sbrc	r24, 0
  2cc:	05 c0       	rjmp	.+10     	; 0x2d8 <SYSTEM_loop+0x28>
+		{
+			SSD_write(settemp);
  2ce:	80 91 70 00 	lds	r24, 0x0070	; 0x800070 <settemp>
  2d2:	0e 94 cd 00 	call	0x19a	; 0x19a <SSD_write>
  2d6:	08 95       	ret
+		}
+		else
+		{
+			SSD_OFF();
  2d8:	0e 94 ca 00 	call	0x194	; 0x194 <SSD_OFF>
  2dc:	08 95       	ret
 
 000002de <INIT_HeaterCooler>:
+
+#include "TCS.h"
+extern char ledStatus;
+void INIT_HeaterCooler()
+{
+	SetBit(heaterDDR, heaterPin);
  2de:	8f 9a       	sbi	0x11, 7	; 17
+	SetBit(coolerDDR, coolerPin);
  2e0:	8e 9a       	sbi	0x11, 6	; 17
+	SetBit(ledDDR, ledPin);
  2e2:	8b 9a       	sbi	0x11, 3	; 17
  2e4:	08 95       	ret
 
 000002e6 <COOLER_ON>:
+}
+
+void COOLER_ON()
+{
+	SetBit(coolerPort, coolerPin);
  2e6:	96 9a       	sbi	0x12, 6	; 18
  2e8:	08 95       	ret
 
 000002ea <COOLER_OFF>:
+}
+
+void COOLER_OFF()
+{
+	ClearBit(coolerPort, coolerPin);
  2ea:	96 98       	cbi	0x12, 6	; 18
  2ec:	08 95       	ret
 
 000002ee <HEATER_ON>:
+}
+void HEATER_ON()
+{
+	SetBit(heaterPort, heaterPin);
  2ee:	97 9a       	sbi	0x12, 7	; 18
  2f0:	08 95       	ret
 
 000002f2 <HEATER_OFF>:
+}
+void HEATER_OFF()
+{
+	ClearBit(heaterPort, heaterPin);
  2f2:	97 98       	cbi	0x12, 7	; 18
  2f4:	08 95       	ret
 
 000002f6 <HEATER_LED>:
+}
+
+void HEATER_LED()
+{
+	if (ledStatus)
  2f6:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <__data_end>
  2fa:	88 23       	and	r24, r24
  2fc:	29 f0       	breq	.+10     	; 0x308 <HEATER_LED+0x12>
+	{
+		SetBit(ledPort, ledPin);
  2fe:	93 9a       	sbi	0x12, 3	; 18
+	}
+	if (!ledStatus)
  300:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <__data_end>
  304:	81 11       	cpse	r24, r1
  306:	01 c0       	rjmp	.+2      	; 0x30a <HEATER_LED+0x14>
+	{
+		ClearBit(ledPort, ledPin);
  308:	93 98       	cbi	0x12, 3	; 18
  30a:	08 95       	ret
 
 0000030c <COOLER_LED>:
+	}
+}
+
+void COOLER_LED()
+{
+	SetBit(ledPort, ledPin);
  30c:	93 9a       	sbi	0x12, 3	; 18
  30e:	08 95       	ret
 
 00000310 <LED_OFF>:
+}
+
+void LED_OFF()
+{
+	ClearBit(ledPort, ledPin);
  310:	93 98       	cbi	0x12, 3	; 18
  312:	08 95       	ret
 
 00000314 <TCS_Actuator>:
+long int current_temp = 0;
+
+// activates the cooler or the heater depending on the temperature and settemp
+void TCS_Actuator()
+{
+	char settemp = eeprom_read_byte((int *)0x55);
  314:	85 e5       	ldi	r24, 0x55	; 85
  316:	90 e0       	ldi	r25, 0x00	; 0
  318:	0e 94 db 03 	call	0x7b6	; 0x7b6 <eeprom_read_byte>
+	int diff = settemp - current_temp;
  31c:	90 e0       	ldi	r25, 0x00	; 0
  31e:	20 91 78 00 	lds	r18, 0x0078	; 0x800078 <current_temp>
  322:	30 91 79 00 	lds	r19, 0x0079	; 0x800079 <current_temp+0x1>
  326:	82 1b       	sub	r24, r18
  328:	93 0b       	sbc	r25, r19
+
+	if (diff < -11)
  32a:	85 3f       	cpi	r24, 0xF5	; 245
  32c:	2f ef       	ldi	r18, 0xFF	; 255
  32e:	92 07       	cpc	r25, r18
  330:	3c f4       	brge	.+14     	; 0x340 <TCS_Actuator+0x2c>
+	{
+		COOLER_ON();
  332:	0e 94 73 01 	call	0x2e6	; 0x2e6 <COOLER_ON>
+		HEATER_OFF();
  336:	0e 94 79 01 	call	0x2f2	; 0x2f2 <HEATER_OFF>
+		COOLER_LED();
  33a:	0e 94 86 01 	call	0x30c	; 0x30c <COOLER_LED>
  33e:	08 95       	ret
+	}
+	else if (diff > -2)
  340:	8f 3f       	cpi	r24, 0xFF	; 255
  342:	9f 4f       	sbci	r25, 0xFF	; 255
  344:	3c f0       	brlt	.+14     	; 0x354 <TCS_Actuator+0x40>
+	{
+		HEATER_ON();
  346:	0e 94 77 01 	call	0x2ee	; 0x2ee <HEATER_ON>
+		COOLER_OFF();
  34a:	0e 94 75 01 	call	0x2ea	; 0x2ea <COOLER_OFF>
+		HEATER_LED();
  34e:	0e 94 7b 01 	call	0x2f6	; 0x2f6 <HEATER_LED>
  352:	08 95       	ret
+	}
+	else
+	{
+		HEATER_OFF();
  354:	0e 94 79 01 	call	0x2f2	; 0x2f2 <HEATER_OFF>
+		COOLER_OFF();
  358:	0e 94 75 01 	call	0x2ea	; 0x2ea <COOLER_OFF>
+		LED_OFF();
  35c:	0e 94 88 01 	call	0x310	; 0x310 <LED_OFF>
  360:	08 95       	ret
 
 00000362 <TCS_Handler>:
+}
+
+// reads the temperature from the LM35 sensor
+// and stores it in an array of 10 elements with average value
+void TCS_Handler()
+{
  362:	cf 93       	push	r28
  364:	df 93       	push	r29
+
+	if (temp_reading_counter < 10)
  366:	c0 91 90 00 	lds	r28, 0x0090	; 0x800090 <temp_reading_counter>
  36a:	d0 91 91 00 	lds	r29, 0x0091	; 0x800091 <temp_reading_counter+0x1>
  36e:	ca 30       	cpi	r28, 0x0A	; 10
  370:	d1 05       	cpc	r29, r1
  372:	94 f4       	brge	.+36     	; 0x398 <TCS_Handler+0x36>
+	{
+		temp_reading[temp_reading_counter] = LM35_Read();
  374:	0e 94 be 00 	call	0x17c	; 0x17c <LM35_Read>
  378:	cc 0f       	add	r28, r28
  37a:	dd 1f       	adc	r29, r29
@@ -499,12 +655,17 @@ void INIT_eeprom()
  37e:	df 4f       	sbci	r29, 0xFF	; 255
  380:	99 83       	std	Y+1, r25	; 0x01
  382:	88 83       	st	Y, r24
+		temp_reading_counter++;
  384:	80 91 90 00 	lds	r24, 0x0090	; 0x800090 <temp_reading_counter>
  388:	90 91 91 00 	lds	r25, 0x0091	; 0x800091 <temp_reading_counter+0x1>
  38c:	01 96       	adiw	r24, 0x01	; 1
  38e:	90 93 91 00 	sts	0x0091, r25	; 0x800091 <temp_reading_counter+0x1>
  392:	80 93 90 00 	sts	0x0090, r24	; 0x800090 <temp_reading_counter>
  396:	2f c0       	rjmp	.+94     	; 0x3f6 <TCS_Handler+0x94>
+	}
+	else
+	{
+		temp_reading_counter = 0;
  398:	10 92 91 00 	sts	0x0091, r1	; 0x800091 <temp_reading_counter+0x1>
  39c:	10 92 90 00 	sts	0x0090, r1	; 0x800090 <temp_reading_counter>
  3a0:	40 91 78 00 	lds	r20, 0x0078	; 0x800078 <current_temp>
@@ -515,6 +676,9 @@ void INIT_eeprom()
  3b2:	f0 e0       	ldi	r31, 0x00	; 0
  3b4:	20 e9       	ldi	r18, 0x90	; 144
  3b6:	30 e0       	ldi	r19, 0x00	; 0
+		for (int i = 0; i < 10; i++)
+		{
+			current_temp += temp_reading[i];
  3b8:	81 91       	ld	r24, Z+
  3ba:	91 91       	ld	r25, Z+
  3bc:	09 2e       	mov	r0, r25
@@ -525,9 +689,19 @@ void INIT_eeprom()
  3c6:	59 1f       	adc	r21, r25
  3c8:	6a 1f       	adc	r22, r26
  3ca:	7b 1f       	adc	r23, r27
+		temp_reading_counter++;
+	}
+	else
+	{
+		temp_reading_counter = 0;
+		for (int i = 0; i < 10; i++)
  3cc:	e2 17       	cp	r30, r18
  3ce:	f3 07       	cpc	r31, r19
  3d0:	99 f7       	brne	.-26     	; 0x3b8 <TCS_Handler+0x56>
+		{
+			current_temp += temp_reading[i];
+		}
+		current_temp /= 10;
  3d2:	cb 01       	movw	r24, r22
  3d4:	ba 01       	movw	r22, r20
  3d6:	2a e0       	ldi	r18, 0x0A	; 10
@@ -539,12 +713,21 @@ void INIT_eeprom()
  3e6:	30 93 79 00 	sts	0x0079, r19	; 0x800079 <current_temp+0x1>
  3ea:	40 93 7a 00 	sts	0x007A, r20	; 0x80007a <current_temp+0x2>
  3ee:	50 93 7b 00 	sts	0x007B, r21	; 0x80007b <current_temp+0x3>
+		TCS_Actuator();
  3f2:	0e 94 8a 01 	call	0x314	; 0x314 <TCS_Actuator>
+	}
+}
  3f6:	df 91       	pop	r29
  3f8:	cf 91       	pop	r28
  3fa:	08 95       	ret
 
 000003fc <__vector_11>:
+//
+
+#include "SYSTEM.h"
+
+ISR(TIMER0_OVF_vect) // Timer0 ISR
+{
  3fc:	1f 92       	push	r1
  3fe:	0f 92       	push	r0
  400:	0f b6       	in	r0, 0x3f	; 63
@@ -562,7 +745,9 @@ void INIT_eeprom()
  418:	bf 93       	push	r27
  41a:	ef 93       	push	r30
  41c:	ff 93       	push	r31
+	SYSTEM_timer();
  41e:	0e 94 05 01 	call	0x20a	; 0x20a <SYSTEM_timer>
+}
  422:	ff 91       	pop	r31
  424:	ef 91       	pop	r30
  426:	bf 91       	pop	r27
@@ -582,15 +767,22 @@ void INIT_eeprom()
  442:	18 95       	reti
 
 00000444 <__vector_1>:
+
+// global device enable toggle
+char on = 0;
+ISR(INT0_vect)
+{
  444:	1f 92       	push	r1
  446:	0f 92       	push	r0
  448:	0f b6       	in	r0, 0x3f	; 63
  44a:	0f 92       	push	r0
  44c:	11 24       	eor	r1, r1
  44e:	8f 93       	push	r24
+	on = ~on;
  450:	80 91 92 00 	lds	r24, 0x0092	; 0x800092 <on>
  454:	80 95       	com	r24
  456:	80 93 92 00 	sts	0x0092, r24	; 0x800092 <on>
+}
  45a:	8f 91       	pop	r24
  45c:	0f 90       	pop	r0
  45e:	0f be       	out	0x3f, r0	; 63
@@ -599,46 +791,83 @@ void INIT_eeprom()
  464:	18 95       	reti
 
 00000466 <main>:
+
+int main(void)
+{
+
+	SYSTEM_init();
  466:	0e 94 f7 00 	call	0x1ee	; 0x1ee <SYSTEM_init>
+
+	while (1)
+	{
+		if (on)
  46a:	80 91 92 00 	lds	r24, 0x0092	; 0x800092 <on>
  46e:	88 23       	and	r24, r24
  470:	19 f0       	breq	.+6      	; 0x478 <main+0x12>
+		{
+			SYSTEM_loop();
  472:	0e 94 58 01 	call	0x2b0	; 0x2b0 <SYSTEM_loop>
  476:	f9 cf       	rjmp	.-14     	; 0x46a <main+0x4>
+		}
+		else
+		{
+			SYSTEM_OFF();
  478:	0e 94 4a 01 	call	0x294	; 0x294 <SYSTEM_OFF>
  47c:	f6 cf       	rjmp	.-20     	; 0x46a <main+0x4>
 
 0000047e <ADC_Init>:
+#include "ADC.h"
+
+static ADC_ConfigStruct ADC_InitStruct;
+
+
+void ADC_Init(ADC_ConfigStruct* ptr){
  47e:	dc 01       	movw	r26, r24
+	ADC_InitStruct.PSC = ptr->PSC;
  480:	e3 e9       	ldi	r30, 0x93	; 147
  482:	f0 e0       	ldi	r31, 0x00	; 0
  484:	8c 91       	ld	r24, X
  486:	80 83       	st	Z, r24
+	ADC_InitStruct.RMode = ptr->RMode;
  488:	11 96       	adiw	r26, 0x01	; 1
  48a:	8c 91       	ld	r24, X
  48c:	11 97       	sbiw	r26, 0x01	; 1
  48e:	81 83       	std	Z+1, r24	; 0x01
+	ADC_InitStruct.VRef = ptr->VRef;
  490:	12 96       	adiw	r26, 0x02	; 2
  492:	9c 91       	ld	r25, X
  494:	12 97       	sbiw	r26, 0x02	; 2
  496:	92 83       	std	Z+2, r25	; 0x02
+	ADC_InitStruct.Channel = ptr->Channel;
  498:	13 96       	adiw	r26, 0x03	; 3
  49a:	9c 91       	ld	r25, X
  49c:	93 83       	std	Z+3, r25	; 0x03
+	if(ADC_InitStruct.RMode == Interrupt){
  49e:	81 30       	cpi	r24, 0x01	; 1
  4a0:	11 f4       	brne	.+4      	; 0x4a6 <ADC_Init+0x28>
+		SetBit(ADCSRA_REG,ADIE_BIT);
  4a2:	33 9a       	sbi	0x06, 3	; 6
  4a4:	03 c0       	rjmp	.+6      	; 0x4ac <ADC_Init+0x2e>
+		}else if(ADC_InitStruct.RMode == Polling){
  4a6:	81 11       	cpse	r24, r1
  4a8:	01 c0       	rjmp	.+2      	; 0x4ac <ADC_Init+0x2e>
+		ClearBit(ADCSRA_REG,ADIE_BIT);
  4aa:	33 98       	cbi	0x06, 3	; 6
+	}
+	// Enabling the ADC
+	SetBit(ADCSRA_REG,ADEN_BIT);
  4ac:	37 9a       	sbi	0x06, 7	; 6
+	// Setting System Clock pre-scalar
+	ADCSRA_REG |= ADC_InitStruct.PSC;
  4ae:	96 b1       	in	r25, 0x06	; 6
  4b0:	e3 e9       	ldi	r30, 0x93	; 147
  4b2:	f0 e0       	ldi	r31, 0x00	; 0
  4b4:	80 81       	ld	r24, Z
  4b6:	89 2b       	or	r24, r25
  4b8:	86 b9       	out	0x06, r24	; 6
+	// Setting Vref
+	//ADMUX_REG &= 0x3F;
+	ADMUX_REG |= (ADC_InitStruct.VRef<<6);
  4ba:	27 b1       	in	r18, 0x07	; 7
  4bc:	92 81       	ldd	r25, Z+2	; 0x02
  4be:	30 e4       	ldi	r19, 0x40	; 64
@@ -647,6 +876,8 @@ void INIT_eeprom()
  4c4:	11 24       	eor	r1, r1
  4c6:	82 2b       	or	r24, r18
  4c8:	87 b9       	out	0x07, r24	; 7
+	// Setting the ADC channel to be used
+	ADMUX_REG |= (ADC_InitStruct.Channel);
  4ca:	97 b1       	in	r25, 0x07	; 7
  4cc:	83 81       	ldd	r24, Z+3	; 0x03
  4ce:	89 2b       	or	r24, r25
@@ -654,20 +885,40 @@ void INIT_eeprom()
  4d2:	08 95       	ret
 
 000004d4 <ADC_Read>:
+}
+
+unsigned short int ADC_Read(ADC_Channel channel){
+	unsigned short Read=0;
+	SetBit(ADCSRA_REG,ADSC_BIT);
  4d4:	36 9a       	sbi	0x06, 6	; 6
+	while(GetBit(ADCSRA_REG,ADIF_BIT)==0){
  4d6:	34 9b       	sbis	0x06, 4	; 6
  4d8:	fe cf       	rjmp	.-4      	; 0x4d6 <ADC_Read+0x2>
+	}
+	Read = ADCL_REG;
  4da:	84 b1       	in	r24, 0x04	; 4
+	Read |= ADCH_REG<<8;
  4dc:	25 b1       	in	r18, 0x05	; 5
+	return Read;
  4de:	90 e0       	ldi	r25, 0x00	; 0
+}
  4e0:	92 2b       	or	r25, r18
  4e2:	08 95       	ret
 
 000004e4 <INIT_Timer0>:
+// Timer counter value for 100ms interrupt frequency
+
+void INIT_Timer0()
+{
+	
+	TIMSK=(1<<TOIE0);  	/* Enable Timer0 overflow interrupts */
  4e4:	81 e0       	ldi	r24, 0x01	; 1
  4e6:	89 bf       	out	0x39, r24	; 57
+	
+	TCNT0 = 8;  		/* Load TCNT0, count for 10ms*/
  4e8:	88 e0       	ldi	r24, 0x08	; 8
  4ea:	82 bf       	out	0x32, r24	; 50
+	TCCR0 = (1<<CS02) | (1<<CS00); /* Start timer0 with /1024 prescaler*/
  4ec:	85 e0       	ldi	r24, 0x05	; 5
  4ee:	83 bf       	out	0x33, r24	; 51
  4f0:	08 95       	ret
