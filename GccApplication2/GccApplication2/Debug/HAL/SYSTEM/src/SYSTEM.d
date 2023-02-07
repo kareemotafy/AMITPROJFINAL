@@ -1,4 +1,5 @@
-main.d main.o: .././main.c ../HAL/SYSTEM/includes/SYSTEM.h \
+HAL/SYSTEM/src/SYSTEM.d HAL/SYSTEM/src/SYSTEM.o: \
+ ../HAL/SYSTEM/src/SYSTEM.c ../HAL/SYSTEM/includes/SYSTEM.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \

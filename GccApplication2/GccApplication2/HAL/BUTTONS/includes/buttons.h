@@ -3,8 +3,7 @@
  *
  * Created: 1/13/2023 5:00:13 AM
  *  Author: omar
- */ 
-
+ */
 
 #ifndef BUTTONS_H_
 #define BUTTONS_H_
@@ -27,10 +26,7 @@
 extern char setting;
 extern char settemp;
 extern char count;
-extern char iteration;
 void INIT_buttons();
-void UpdateSetTemp();	
-
-
+void UpdateSetTemp();
 
 #endif /* BUTTONS_H_ */

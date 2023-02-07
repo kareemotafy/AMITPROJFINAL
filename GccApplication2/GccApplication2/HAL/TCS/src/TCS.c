@@ -36,22 +36,22 @@ void HEATER_LED()
 {
 	if (ledStatus)
 	{
-	  SetBit(ledPort,ledPin);
+		SetBit(ledPort, ledPin);
 	}
 	if (!ledStatus)
 	{
-		ClearBit(ledPort,ledPin);
+		ClearBit(ledPort, ledPin);
 	}
 }
 
 void COOLER_LED()
 {
-	SetBit(ledPort,ledPin);
+	SetBit(ledPort, ledPin);
 }
 
 void LED_OFF()
 {
-	ClearBit(ledPort,ledPin);
+	ClearBit(ledPort, ledPin);
 }
 
 short temp_reading_counter = 0;

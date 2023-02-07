@@ -24,6 +24,7 @@ void INIT_buttons()
 	sei();
 }
 
+// updates eeprom in setting mode
 void UpdateSetTemp()
 {
 

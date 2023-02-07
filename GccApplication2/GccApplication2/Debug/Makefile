@@ -43,20 +43,23 @@ SUBDIRS :=  \
 ../HAL/LM35/includes \
 ../HAL/LM35/src \
 ../HAL/BUTTONS \
+../HAL/SYSTEM \
 ../HAL/SSD \
 ../HAL/SSD/includes \
 ../HAL/SSD/src \
+../HAL/SYSTEM/includes \
+../HAL/SYSTEM/src \
 ../HAL/TCS \
 ../HAL/TCS/includes \
 ../HAL/TCS/src \
 ../MCAL \
 ../MCAL/ADC/includes \
 ../MCAL/ADC/src \
-../MCAL/I2C \
-../MCAL/I2C/includes \
-../MCAL/I2C/src \
 ../Library \
 ../MCAL/ADC \
+../MCAL/I2C/ \
+../MCAL/I2C/includes/ \
+../MCAL/I2C/src/ \
 ../MCAL/Timer \
 ../MCAL/Timer/includes \
 ../MCAL/Timer/src
@@ -68,6 +71,7 @@ C_SRCS +=  \
 ../HAL/EEPROM/src/EEPROM.c \
 ../HAL/LM35/src/LM35.c \
 ../HAL/SSD/src/ssd.c \
+../HAL/SYSTEM/src/SYSTEM.c \
 ../HAL/TCS/src/TCS.c \
 ../main.c \
 ../MCAL/ADC/src/ADC.c \
@@ -86,6 +90,7 @@ HAL/BUTTONS/src/buttons.o \
 HAL/EEPROM/src/EEPROM.o \
 HAL/LM35/src/LM35.o \
 HAL/SSD/src/ssd.o \
+HAL/SYSTEM/src/SYSTEM.o \
 HAL/TCS/src/TCS.o \
 main.o \
 MCAL/ADC/src/ADC.o \
@@ -97,6 +102,7 @@ HAL/BUTTONS/src/buttons.o \
 HAL/EEPROM/src/EEPROM.o \
 HAL/LM35/src/LM35.o \
 HAL/SSD/src/ssd.o \
+HAL/SYSTEM/src/SYSTEM.o \
 HAL/TCS/src/TCS.o \
 main.o \
 MCAL/ADC/src/ADC.o \
@@ -108,6 +114,7 @@ HAL/BUTTONS/src/buttons.d \
 HAL/EEPROM/src/EEPROM.d \
 HAL/LM35/src/LM35.d \
 HAL/SSD/src/ssd.d \
+HAL/SYSTEM/src/SYSTEM.d \
 HAL/TCS/src/TCS.d \
 main.d \
 MCAL/ADC/src/ADC.d \
@@ -119,6 +126,7 @@ HAL/BUTTONS/src/buttons.d \
 HAL/EEPROM/src/EEPROM.d \
 HAL/LM35/src/LM35.d \
 HAL/SSD/src/ssd.d \
+HAL/SYSTEM/src/SYSTEM.d \
 HAL/TCS/src/TCS.d \
 main.d \
 MCAL/ADC/src/ADC.d \
@@ -142,63 +150,70 @@ LINKER_SCRIPT_DEP+=
 HAL/BUTTONS/src/buttons.o: ../HAL/BUTTONS/src/buttons.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 HAL/EEPROM/src/EEPROM.o: ../HAL/EEPROM/src/EEPROM.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 HAL/LM35/src/LM35.o: ../HAL/LM35/src/LM35.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 HAL/SSD/src/ssd.o: ../HAL/SSD/src/ssd.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+HAL/SYSTEM/src/SYSTEM.o: ../HAL/SYSTEM/src/SYSTEM.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 HAL/TCS/src/TCS.o: ../HAL/TCS/src/TCS.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 ./main.o: .././main.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 MCAL/ADC/src/ADC.o: ../MCAL/ADC/src/ADC.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 MCAL/I2C/src/I2C.o: ../MCAL/I2C/src/I2C.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 MCAL/Timer/src/Timer.o: ../MCAL/Timer/src/Timer.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../MCAL/I2C/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../HAL/EEPROM/includes" -I"../Library" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\include" -I"../MCAL/ADC/includes" -I"../HAL/LM35/includes" -I"../HAL/TCS/includes" -I"../MCAL/Timer/includes" -I"../HAL/SSD/includes" -I"../HAL/BUTTONS/includes" -I"../HAL/SYSTEM/includes" -I"../MCAL/I2C/includes"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 

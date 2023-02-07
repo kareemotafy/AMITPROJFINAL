@@ -10,6 +10,8 @@ HAL\LM35\src\LM35.c
 
 HAL\SSD\src\ssd.c
 
+HAL\SYSTEM\src\SYSTEM.c
+
 HAL\TCS\src\TCS.c
 
 main.c

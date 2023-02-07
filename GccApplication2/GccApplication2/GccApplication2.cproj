@@ -36,7 +36,7 @@
   <documentation help="" />
   <offline-documentation help="" />
   <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.42.0" />
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.34.1" />
   </dependencies>
 </framework-data>
     </AsfFrameworkConfig>
@@ -83,50 +83,51 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.common.Device>-mmcu=atmega32a -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a"</avrgcc.common.Device>
-        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcc.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>DEBUG</Value>
-          </ListValues>
-        </avrgcc.compiler.symbols.DefSymbols>
-        <avrgcc.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>../HAL/EEPROM/includes</Value>
-            <Value>../MCAL/I2C/includes</Value>
-            <Value>../Library</Value>
-            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.7.374\include\</Value>
-            <Value>../MCAL/ADC/includes</Value>
-            <Value>../HAL/LM35/includes</Value>
-            <Value>../HAL/TCS/includes</Value>
-            <Value>../MCAL/Timer/includes</Value>
-            <Value>../HAL/SSD/includes</Value>
-            <Value>../HAL/BUTTONS/includes</Value>
-          </ListValues>
-        </avrgcc.compiler.directories.IncludePaths>
-        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
-        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
-        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-        <avrgcc.linker.libraries.Libraries>
-          <ListValues>
-            <Value>libm</Value>
-          </ListValues>
-        </avrgcc.linker.libraries.Libraries>
-        <avrgcc.assembler.general.IncludePaths>
-          <ListValues>
-            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.7.374\include\</Value>
-          </ListValues>
-        </avrgcc.assembler.general.IncludePaths>
-        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
-      </AvrGcc>
+  <avrgcc.common.Device>-mmcu=atmega32a -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.7.374\gcc\dev\atmega32a"</avrgcc.common.Device>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../HAL/EEPROM/includes</Value>
+      <Value>../Library</Value>
+      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.7.374\include\</Value>
+      <Value>../MCAL/ADC/includes</Value>
+      <Value>../HAL/LM35/includes</Value>
+      <Value>../HAL/TCS/includes</Value>
+      <Value>../MCAL/Timer/includes</Value>
+      <Value>../HAL/SSD/includes</Value>
+      <Value>../HAL/BUTTONS/includes</Value>
+      <Value>../HAL/SYSTEM/includes</Value>
+      <Value>../MCAL/I2C/includes</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.7.374\include\</Value>
+    </ListValues>
+  </avrgcc.assembler.general.IncludePaths>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
@@ -152,6 +153,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\SSD\src\ssd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\SYSTEM\includes\SYSTEM.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\SYSTEM\src\SYSTEM.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\TCS\includes\TCS.h">
@@ -208,20 +215,23 @@
     <Folder Include="HAL\LM35\includes" />
     <Folder Include="HAL\LM35\src" />
     <Folder Include="HAL\BUTTONS" />
+    <Folder Include="HAL\SYSTEM" />
     <Folder Include="HAL\SSD" />
     <Folder Include="HAL\SSD\includes" />
     <Folder Include="HAL\SSD\src" />
+    <Folder Include="HAL\SYSTEM\includes" />
+    <Folder Include="HAL\SYSTEM\src" />
     <Folder Include="HAL\TCS" />
     <Folder Include="HAL\TCS\includes" />
     <Folder Include="HAL\TCS\src" />
     <Folder Include="MCAL" />
     <Folder Include="MCAL\ADC\includes" />
     <Folder Include="MCAL\ADC\src" />
-    <Folder Include="MCAL\I2C" />
-    <Folder Include="MCAL\I2C\includes" />
-    <Folder Include="MCAL\I2C\src" />
     <Folder Include="Library" />
     <Folder Include="MCAL\ADC" />
+    <Folder Include="MCAL\I2C\" />
+    <Folder Include="MCAL\I2C\includes\" />
+    <Folder Include="MCAL\I2C\src\" />
     <Folder Include="MCAL\Timer" />
     <Folder Include="MCAL\Timer\includes" />
     <Folder Include="MCAL\Timer\src" />
